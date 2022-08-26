@@ -1,5 +1,8 @@
 package org.example.mirai.plugin
 
+import net.mamoe.mirai.console.data.AutoSavePluginConfig
+import net.mamoe.mirai.console.data.ValueDescription
+import net.mamoe.mirai.console.data.value
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
@@ -41,29 +44,46 @@ object PluginMain : KotlinPlugin(
     override fun onEnable() {
         logger.info { "Plugin loaded" }
         //配置文件目录 "${dataFolder.absolutePath}/"
+        //启用配置文件
+        ElysianRealmConfig.reload()
         val eventChannel = GlobalEventChannel.parentScope(this)
         eventChannel.subscribeAlways<GroupMessageEvent>{
             //群消息
-            //复读示例
-//            if (message.contentToString().startsWith("复读")) {
-//                group.sendMessage(message.contentToString().replace("复读", ""))
+//            if (message.contentToString() == "hi") {
+//                //群内发送
+//                //发送本地图片
+//                val image = File("data/人律乐土.jpg").toExternalResource()
+//                group.sendImage(image)
+//                image.close()
+//
+////                //发送网络图片
+////                var url = URL("https://mmbiz.qpic.cn/mmbiz_jpg/63W5YyIWds58otZr3fYHIIXZSyPucZAUOtQF85fZX7YhXR9emtjcwqGibiaBtgc7QXZ9GErhWec3fIOtfpsI5IcQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1")
+////                var urlImage = url.openConnection().getInputStream()
+////                group.sendImage(urlImage)
+////                urlImage.close()
+//
+//
+//                //向发送者私聊发送消息
+//                //sender.sendMessage("hi")
+//                //不继续处理
+//                return@subscribeAlways
 //            }
-            if (message.contentToString() == "人律乐土") {
-                //群内发送
-                //发送本地图片
-                val image = File("data/人律乐土.jpg").toExternalResource()
+            if (ElysianRealmConfig.value1.contains(message.contentToString())) {
+                //群内发送本地图片
+                val image = File("data/人之律者.jpg").toExternalResource()
                 group.sendImage(image)
                 image.close()
 
-//                //发送网络图片
-//                var url = URL("https://mmbiz.qpic.cn/mmbiz_jpg/63W5YyIWds58otZr3fYHIIXZSyPucZAUOtQF85fZX7YhXR9emtjcwqGibiaBtgc7QXZ9GErhWec3fIOtfpsI5IcQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1")
-//                var urlImage = url.openConnection().getInputStream()
-//                group.sendImage(urlImage)
-//                urlImage.close()
+                //不继续处理
+                return@subscribeAlways
+            }
 
+            if (ElysianRealmConfig.value2.contains(message.contentToString())) {
+                //群内发送本地图片
+                val image = File("data/空之律者.jpg").toExternalResource()
+                group.sendImage(image)
+                image.close()
 
-                //向发送者私聊发送消息
-                //sender.sendMessage("hi")
                 //不继续处理
                 return@subscribeAlways
             }
@@ -94,4 +114,23 @@ object PluginMain : KotlinPlugin(
             accept()
         }
     }
+}
+object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
+
+    @ValueDescription("人之律者")
+    val value1: Set<String> by value(
+        setOf(
+            "人律乐土",
+            "爱律乐土"
+        )
+    )
+
+    @ValueDescription("空之律者")
+    val value2: Set<String> by value(
+        setOf(
+            "人律乐土",
+            "爱律乐土"
+        )
+    )
+
 }

@@ -1,5 +1,3 @@
-# mirai-console-plugin-template
+# 基于Mirai-Console的崩3乐土攻略插件
 
-[Mirai Console](https://github.com/mamoe/mirai-console) 插件模板, 使用 Kotlin + Gradle.
-
-[如何使用](https://github.com/project-mirai/how-to-use-plugin-template)
+可在QQ群内快速获取往世乐土攻略

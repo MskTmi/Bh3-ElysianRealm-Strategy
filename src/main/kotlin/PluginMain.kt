@@ -17,21 +17,6 @@ import net.mamoe.mirai.utils.info
 import java.io.File
 import java.net.URL
 
-/**
- * 使用 kotlin 版请把
- * `src/main/resources/META-INF.services/net.mamoe.mirai.console.plugin.jvm.JvmPlugin`
- * 文件内容改成 `org.example.mirai.plugin.PluginMain` 也就是当前主类全类名
- *
- * 使用 kotlin 可以把 java 源集删除不会对项目有影响
- *
- * 在 `settings.gradle.kts` 里改构建的插件名称、依赖库和插件版本
- *
- * 在该示例下的 [JvmPluginDescription] 修改插件名称，id和版本，etc
- *
- * 可以使用 `src/test/kotlin/RunMirai.kt` 在 ide 里直接调试，
- * 不用复制到 mirai-console-loader 或其他启动器中调试
- */
-
 object PluginMain : KotlinPlugin(
     JvmPluginDescription(
         id = "Bh3.ElysianRealm.Strategy",
@@ -50,54 +35,29 @@ object PluginMain : KotlinPlugin(
         val eventChannel = GlobalEventChannel.parentScope(this)
         eventChannel.subscribeAlways<GroupMessageEvent>{
             //群消息
-//            if (message.contentToString() == "hi") {
-////                //发送网络图片
-////                var url = URL("https://mmbiz.qpic.cn/mmbiz_jpg/63W5YyIWds58otZr3fYHIIXZSyPucZAUOtQF85fZX7YhXR9emtjcwqGibiaBtgc7QXZ9GErhWec3fIOtfpsI5IcQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1")
-////                var urlImage = url.openConnection().getInputStream()
-////                group.sendImage(urlImage)
-////                urlImage.close()
-
-//                //向发送者私聊发送消息
-//                //sender.sendMessage("hi")
-//                //不继续处理
-//                return@subscribeAlways
-//            }
-
             if (ElysianRealmConfig.ElysianRealmConfig.any{it.value.contains(message.contentToString())}){
                 //群内发送本地图片
                 val filteredMap = ElysianRealmConfig.ElysianRealmConfig.filter { message.contentToString() in it.value }
                 val image = File("data/ElysianRealm-Data/${filteredMap.keys.elementAt(0)}.JPG").toExternalResource()
                 group.sendImage(image)
                 image.close()
-
+                //发送网络图片
+                //var url = URL("https://mmbiz.qpic.cn/mmbiz_jpg/63W5YyIWds58otZr3fYHIIXZSyPucZAUOtQF85fZX7YhXR9emtjcwqGibiaBtgc7QXZ9GErhWec3fIOtfpsI5IcQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1")
+                //var urlImage = url.openConnection().getInputStream()
+                //group.sendImage(urlImage)
+                //urlImage.close()
                 //不继续处理
                 return@subscribeAlways
             }
 
-//
-            //分类示例
-//            message.forEach {
-//                //循环每个元素在消息里
-//                if (it is Image) {
-//                    //如果消息这一部分是图片
-//                    val url = it.queryUrl()
-//                    group.sendMessage("图片，下载地址$url")
-//                }
-//                if (it is PlainText) {
-//                    //如果消息这一部分是纯文本
-//                    group.sendMessage("纯文本，内容:${it.content}")
-//                }
-//            }
         }
-        eventChannel.subscribeAlways<FriendMessageEvent>{
-            //好友信息
-            //sender.sendMessage("我活着")
-        }
+
         eventChannel.subscribeAlways<NewFriendRequestEvent>{
             //自动同意好友申请
             //accept()
         }
         eventChannel.subscribeAlways<BotInvitedJoinGroupRequestEvent>{
+            //自动加群
             accept()
         }
     }

@@ -207,6 +207,11 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             ),
             "女武神 · 荣光" to setOf(
                 "荣光乐土"
+            ),
+            "人律蓄力流" to setOf(
+                "人律蓄力流",
+                "人律纯蓄流",
+                "人律蓄力"
             )
         )
     )

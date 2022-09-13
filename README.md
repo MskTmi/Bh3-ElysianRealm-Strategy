@@ -8,7 +8,7 @@
 
 1. 运行 [Mirai Console](https://github.com/mamoe/mirai-console) 生成plugins文件夹;
 
-2. 将`ElysianRealm-1.0.0.mirai2.jar`放置在plugins文件夹;
+2. 将`ElysianRealm-1.1.0.mirai2.jar`放置在plugins文件夹;
 
 3. 将`ElysianRealm-Data.zip`解压至data目录下;
 
@@ -24,7 +24,7 @@
 
 2. 将图片放置在 Mirai/data/ElysianRealm-Data下;
 
-> 图片名为ElysianRealmConfig.yml 中添加的角色名称 + JPG （注意大写！！！）
+> 图片名为ElysianRealmConfig.yml 中添加的角色名称 + jpg （注意小写！！！）
 
 > 插件功能为根据关键词触发图片，可自定其他内容
 

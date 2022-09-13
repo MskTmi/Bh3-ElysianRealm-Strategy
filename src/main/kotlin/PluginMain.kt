@@ -35,7 +35,7 @@ object PluginMain : KotlinPlugin(
             if (ElysianRealmConfig.ElysianRealmConfig.any{it.value.contains(message.contentToString())}){
                 //群内发送本地图片
                 val filteredMap = ElysianRealmConfig.ElysianRealmConfig.filter { message.contentToString() in it.value }
-                val image = File("data/ElysianRealm-Data/${filteredMap.keys.elementAt(0)}.JPG").toExternalResource()
+                val image = File("data/ElysianRealm-Data/${filteredMap.keys.elementAt(0)}.jpg").toExternalResource()
                 group.sendImage(image)
                 image.close()
                 //发送网络图片

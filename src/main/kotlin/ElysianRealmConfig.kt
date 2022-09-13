@@ -154,6 +154,10 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "人律蓄力流",
                 "人律纯蓄流",
                 "人律蓄力"
+            ),
+            "李素裳" to setOf(
+                "李素裳乐土",
+                "月痕乐土"
             )
         )
     )

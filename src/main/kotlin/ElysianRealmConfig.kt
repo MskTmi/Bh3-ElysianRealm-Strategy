@@ -129,6 +129,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             "御神装 · 勿忘" to setOf(
                 "勿忘乐土",
                 "机八乐土",
+                "冰八乐土",
                 "八重樱乐土"
             ),
             "苍骑士 · 月魂" to setOf(

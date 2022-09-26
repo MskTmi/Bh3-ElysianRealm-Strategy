@@ -159,6 +159,11 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             "李素裳" to setOf(
                 "李素裳乐土",
                 "月痕乐土"
+            ),
+            "维尔薇" to setOf(
+                "维尔薇乐土",
+                "维尔微乐土",
+                "v2v乐土"
             )
         )
     )

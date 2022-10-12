@@ -6,7 +6,7 @@
 
 ## 食用方法
 
-1. 运行 [Mirai Console](https://github.com/mamoe/mirai-console) 生成plugins文件夹;
+1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹;
 
 2. 将`ElysianRealm-1.1.0.mirai2.jar`放置在plugins文件夹;
 

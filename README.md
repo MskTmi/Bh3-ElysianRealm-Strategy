@@ -8,7 +8,7 @@
 
 1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹;
 
-2. 将`ElysianRealm-1.1.0.mirai2.jar`放置在plugins文件夹;
+2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将`ElysianRealm-1.1.0.mirai2.jar`放置在plugins文件夹;
 
 3. 将`ElysianRealm-Data.zip`解压至data目录下;
 

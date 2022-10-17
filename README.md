@@ -24,7 +24,8 @@
 
 2. 将图片放置在 Mirai/data/ElysianRealm-Data下;
 
-> 图片名为ElysianRealmConfig.yml 中添加的角色名称 + jpg （注意小写！！！）
+> 图片名为ElysianRealmConfig.yml 中添加的角色名称 + jpg 
+> 支持主流图片后缀名(jpeg,png,gif)
 
 > 插件功能为根据关键词触发图片，可自定其他内容
 

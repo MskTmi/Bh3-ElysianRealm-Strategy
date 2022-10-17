@@ -35,11 +35,18 @@ object PluginMain : KotlinPlugin(
             if (ElysianRealmConfig.ElysianRealmConfig.any{it.value.contains(message.contentToString())}){
                 //群内发送本地图片
                 val filteredMap = ElysianRealmConfig.ElysianRealmConfig.filter { message.contentToString() in it.value }
-                val image = File("data/ElysianRealm-Data/${filteredMap.keys.elementAt(0)}.jpg").toExternalResource()
-                group.sendImage(image)
-                image.close()
-                //发送网络图片
-                //var url = URL("https://mmbiz.qpic.cn/mmbiz_jpg/63W5YyIWds58otZr3fYHIIXZSyPucZAUOtQF85fZX7YhXR9emtjcwqGibiaBtgc7QXZ9GErhWec3fIOtfpsI5IcQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1")
+                File("data/ElysianRealm-Data").walk()
+                    .filter { it.isFile }
+                    .filter { it.extension in listOf("png","PNG","jpg","jpeg","JPG","gif","GIF") }
+                    .filter { it.nameWithoutExtension == filteredMap.keys.elementAt(0) }
+                    .forEach {
+                        val image = File("data/ElysianRealm-Data/${it.name}").toExternalResource()
+                        group.sendImage(image)
+                        image.close()
+                    }
+
+                //发送网络图片(咕咕咕)
+                //var url = URL("")
                 //var urlImage = url.openConnection().getInputStream()
                 //group.sendImage(urlImage)
                 //urlImage.close()

@@ -1,5 +1,5 @@
 plugins {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.7.10"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
 
@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.example"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public") // 阿里云国内代理仓库

@@ -164,6 +164,10 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "维尔薇乐土",
                 "维尔微乐土",
                 "v2v乐土"
+            ),
+            "女王大招流" to setOf(
+                "女王大招流",
+                "空律大招流"
             )
         )
     )

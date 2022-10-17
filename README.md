@@ -8,9 +8,9 @@
 
 1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹;
 
-2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将`ElysianRealm-1.1.0.mirai2.jar`放置在plugins文件夹;
+2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.2.0.mirai2.jar` 放置在plugins文件夹;
 
-3. 将`ElysianRealm-Data.zip`解压至data目录下;
+3. 将 `ElysianRealm-Data.zip` 解压至data目录下;
 
 ## 效果
 
@@ -24,10 +24,10 @@
 
 2. 将图片放置在 Mirai/data/ElysianRealm-Data下;
 
-> 图片名为ElysianRealmConfig.yml 中添加的角色名称 + jpg 
-> 支持主流图片后缀名(jpeg,png,gif)
+> 图片名为ElysianRealmConfig.yml 中添加的角色名称 + jpg  
+  支持主流图片后缀名(jpeg,png,gif)
 
-> 插件功能为根据关键词触发图片，可自定其他内容
+> 插件功能为根据关键词触发图片，可自定其他内容;
 
 ## 其他
 - 图片素材来源于网络，仅供交流学习使用

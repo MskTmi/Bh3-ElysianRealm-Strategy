@@ -1,6 +1,5 @@
 package org.example.mirai.plugin
 
-import io.ktor.util.*
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
@@ -11,14 +10,15 @@ import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.event.events.NewFriendRequestEvent
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.info
-import java.io.File
-import java.net.URL
+import java.io.*
+import java.nio.charset.Charset
+
 
 object PluginMain : KotlinPlugin(
     JvmPluginDescription(
         id = "Bh3.ElysianRealm.Strategy",
         name = "ElysianRealm Strategy",
-        version = "1.1.0",
+        version = "1.2.0",
     ) {
         author("MskTim")
         info("""崩坏3往世乐土攻略插件""")
@@ -55,7 +55,37 @@ object PluginMain : KotlinPlugin(
             }
 
         }
-
+        eventChannel.subscribeAlways<FriendMessageEvent> {
+            //好友信息
+            if (message.contentToString() == "#更新乐土攻略") {
+                sender.sendMessage("开始更新乐土攻略，可能会需要一段时间，请耐心等待")
+                val command = "git clone --depth=1 https://github.com/MskTim/ElysianRealm-Data.git data/ElysianRealm-Data/"
+                val pro = Runtime.getRuntime().exec(command)
+                if (pro.waitFor() == 0) {
+                    sender.sendMessage("乐土攻略更新完成")
+                    sender.sendMessage(clearStream(pro.inputStream))
+                } else {
+                    val errorInfo = clearStream(pro.errorStream)
+                    if (errorInfo.indexOf("fatal: destination path") != -1) {
+                        val gitPull = Runtime.getRuntime().exec("git -C ./data/ElysianRealm-Data/ pull --no-rebase")
+                        if (gitPull.waitFor() == 0) {
+                            sender.sendMessage("乐土攻略更新完成")
+                            sender.sendMessage("[请]在config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml中添加新角色触发词")
+                            sender.sendMessage(clearStream(gitPull.inputStream))
+                        } else {
+                            sender.sendMessage("拉取更新异常:")
+                            sender.sendMessage(clearStream(gitPull.errorStream))
+                            sender.sendMessage("若无法解决可手动删除ElysianRealm-Data文件夹后重新获取")
+                        }
+                        gitPull.destroy()
+                    } else {
+                        sender.sendMessage("clone出现异常:")
+                        sender.sendMessage(errorInfo)
+                    }
+                }
+                pro.destroy()
+            }
+        }
         eventChannel.subscribeAlways<NewFriendRequestEvent>{
             //自动同意好友申请
             //accept()
@@ -68,4 +98,16 @@ object PluginMain : KotlinPlugin(
     override fun onDisable() {
         logger.info { "至此，乐土攻略被关闭了。" }
     }
+}
+
+fun clearStream(inputStream: InputStream?): String {
+    val isr = InputStreamReader(inputStream, Charset.forName("GBK"))
+    val br = BufferedReader(isr)
+    var line: String?
+    var info = ""
+
+    while (br.readLine().also { line = it } != null) {
+        info += line
+    }
+    return info
 }

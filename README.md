@@ -19,6 +19,7 @@
 
 ![IMG_6327](https://user-images.githubusercontent.com/87525977/187026836-b4310fe8-b213-4249-91f3-e0864f8c4d84.PNG)
 
+> 获取乐土攻略功能仅支持群聊，私聊机器人无效;
 
 ## 手动添加角色
 

@@ -13,7 +13,7 @@
 3. 初次使用私聊机器人输入 `#获取乐土攻略` 自动获取攻略图片;
 
 > 后续乐土更新也可使用 `#更新乐土攻略` 获取新版攻略(因为是手动上传图床,在不弃坑的情况下可能会有一到两天延迟);  
-> 更新后[请]在config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml中添加新角色触发词;
+> 更新后「请」在config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml中添加新角色触发词;
 
 ## 效果
 
@@ -40,3 +40,4 @@
 - 图片素材来源于网络，仅供交流学习使用
 - 乐土攻略图源：崩坏3通讯中心
 - 碰到奇怪bug可以联系我：1226594277(qq)
+- 最后「请」点个stars⭐吧~

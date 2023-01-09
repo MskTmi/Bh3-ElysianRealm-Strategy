@@ -57,33 +57,54 @@ object PluginMain : KotlinPlugin(
         }
         eventChannel.subscribeAlways<FriendMessageEvent> {
             //好友信息
-            if (message.contentToString() == "#更新乐土攻略") {
-                sender.sendMessage("开始更新乐土攻略，可能会需要一段时间，请耐心等待")
+            if (message.contentToString() == "#获取乐土攻略") {
+                sender.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
                 val command = "git clone --depth=1 https://github.com/MskTim/ElysianRealm-Data.git data/ElysianRealm-Data/"
                 val pro = Runtime.getRuntime().exec(command)
                 if (pro.waitFor() == 0) {
-                    sender.sendMessage("乐土攻略更新完成")
+                    sender.sendMessage("乐土攻略获取完成")
                     sender.sendMessage(clearStream(pro.inputStream))
                 } else {
                     val errorInfo = clearStream(pro.errorStream)
                     if (errorInfo.indexOf("fatal: destination path") != -1) {
-                        val gitPull = Runtime.getRuntime().exec("git -C ./data/ElysianRealm-Data/ pull --no-rebase")
-                        if (gitPull.waitFor() == 0) {
-                            sender.sendMessage("乐土攻略更新完成")
-                            sender.sendMessage("[请]在config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml中添加新角色触发词")
-                            sender.sendMessage(clearStream(gitPull.inputStream))
-                        } else {
-                            sender.sendMessage("拉取更新异常:")
-                            sender.sendMessage(clearStream(gitPull.errorStream))
-                            sender.sendMessage("若无法解决可手动删除ElysianRealm-Data文件夹后重新获取")
-                        }
-                        gitPull.destroy()
+                        sender.sendMessage(errorInfo)
+                        sender.sendMessage("data目录下已存在ElysianRealm-Data,请勿重复获取")
                     } else {
                         sender.sendMessage("clone出现异常:")
                         sender.sendMessage(errorInfo)
                     }
+                    pro.destroy()
                 }
+
                 pro.destroy()
+            }
+            if (message.contentToString() == "#更新乐土攻略") {
+                sender.sendMessage("开始更新乐土攻略，可能会需要一段时间，请耐心等待")
+                val command = "git -C ./data/ElysianRealm-Data/ pull --no-rebase"
+                val gitPull = Runtime.getRuntime().exec(command)
+                if (gitPull.waitFor() == 0) {
+                    val inputInfo = clearStream(gitPull.inputStream)
+                    if (inputInfo.indexOf("Already up to date") != -1) {
+                        sender.sendMessage(inputInfo)
+                        sender.sendMessage("已经是最新了")
+                    } else {
+                        sender.sendMessage("乐土攻略更新完成")
+                        sender.sendMessage("[请]在config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml中添加新角色触发词")
+                        sender.sendMessage(inputInfo)
+                    }
+                } else {
+                    val errorInfo = clearStream(gitPull.errorStream)
+                    if (errorInfo.indexOf("No such file or directo") != -1) {
+                        sender.sendMessage(errorInfo)
+                        sender.sendMessage("请先输入'#获取乐土攻略'完成初次获取")
+                        sender.sendMessage("若仍无法解决可手动删除ElysianRealm-Data文件夹后重试")
+                    } else {
+                        sender.sendMessage("拉取更新异常:")
+                        sender.sendMessage(errorInfo)
+                        sender.sendMessage("若无法解决可手动删除ElysianRealm-Data文件夹后输入'#获取乐土攻略'重新获取")
+                    }
+                }
+                gitPull.destroy()
             }
         }
         eventChannel.subscribeAlways<NewFriendRequestEvent>{

@@ -8,7 +8,7 @@
 
 1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹;
 
-2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.3.1.mirai2.jar` 放置在plugins文件夹;
+2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.4.0.mirai2.jar` 放置在plugins文件夹;
 
 3. 初次使用私聊机器人输入 `#获取乐土攻略` 自动获取攻略图片;
 
@@ -34,7 +34,7 @@
 ## 常见问题
 1. 获取乐土攻略功能仅支持群聊，私聊机器人无效;
 2.  `#获取乐土攻略` 与 `#更新乐土攻略` 功能依赖Github,请确保网络通畅;
-3. 自`1.3.1`版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
+3. 自`1.4.0`版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
 ## 其他
 - 兼容mirai-console 2.13.2
 - 图片素材来源于网络，仅供交流学习使用

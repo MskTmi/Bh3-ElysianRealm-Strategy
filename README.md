@@ -34,7 +34,9 @@
 ## 常见问题
 1. 获取乐土攻略功能仅支持群聊，私聊机器人无效;
 2.  `#获取乐土攻略` 与 `#更新乐土攻略` 功能依赖Github,请确保网络通畅;
-3. 自`1.4.0`版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
+3. 无法使用`#获取乐土攻略`也可在Mirai/data目录下打开Shell输入 `git clone https://github.com/MskTim/ElysianRealm-Data.git` 手动获取;
+4. 自 `1.4.0` 版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
+
 ## 其他
 - 兼容mirai-console 2.13.2
 - 图片素材来源于网络，仅供交流学习使用

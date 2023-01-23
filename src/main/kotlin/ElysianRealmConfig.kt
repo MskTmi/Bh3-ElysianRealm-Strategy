@@ -34,6 +34,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             "Felis" to setOf(
                 "帕朵乐土",
                 "猫猫乐土",
+                "帕朵菲利丝乐土",
                 "菲利丝乐土"
             ),
             "Oven" to setOf(
@@ -44,6 +45,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             ),
             "Palatinus" to setOf(
                 "天元乐土",
+                "天鹅乐土",
                 "泥头鹅乐土"
             ),
             "Silverwing" to setOf(
@@ -195,13 +197,23 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "真红蓄力流",
                 "月蚀蓄力流"
             ),
-            "first" to setOf(
+            "First" to setOf(
                 "始源乐土",
                 "始源之律者乐土"
+            ),
+            "First_Branch" to setOf(
+                "始源分支流",
+                "始源蓄力流",
+                "始源分支流乐土"
             ),
             "Finally" to setOf(
                 "终焉乐土",
                 "终焉之律者乐土"
+            ),
+            "Finally_Branch" to setOf(
+                "终焉分支流",
+                "终焉蓄力流",
+                "终焉分支流乐土"
             )
         )
     )

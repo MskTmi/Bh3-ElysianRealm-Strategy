@@ -147,10 +147,12 @@ ElysianRealmConfig:
   First:
     - 始源乐土
     - 始源之律者乐土
-  First_Branch:
     - 始源分支流
     - 始源蓄力流
     - 始源分支流乐土
+  First_Skill:
+    - 始源大招流
+    - 始源大招流乐土
   Finally:
     - 终焉乐土
     - 终焉之律者乐土

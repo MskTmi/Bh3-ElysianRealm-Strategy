@@ -199,12 +199,14 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             ),
             "First" to setOf(
                 "始源乐土",
-                "始源之律者乐土"
-            ),
-            "First_Branch" to setOf(
+                "始源之律者乐土",
                 "始源分支流",
                 "始源蓄力流",
                 "始源分支流乐土"
+            ),
+            "First_Skill" to setOf(
+                "始源大招流",
+                "始源大招流乐土"
             ),
             "Finally" to setOf(
                 "终焉乐土",

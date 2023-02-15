@@ -7,9 +7,9 @@ import net.mamoe.mirai.console.data.value
 object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
 
     @ValueDescription("新加入角色可自行添加")
-    val ElysianRealmConfig: Map<String, Set<String>> by value(
+    val ElysianRealmConfig: MutableMap<String, Set<String>> by value(
 
-        mapOf(
+        mutableMapOf(
             "Human" to setOf(
                 "人律乐土",
                 "爱律乐土"

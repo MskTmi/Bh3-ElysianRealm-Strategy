@@ -6,7 +6,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 
-object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetImageCommand") {
+object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStrategy") {
     @Handler
     suspend fun handle(context: CommandSender) {
         context.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
@@ -30,7 +30,7 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetIma
     }
 }
 
-object UpdateImageCommand : SimpleCommand(PluginMain, "更新乐土攻略", "UpdateImageCommand") {
+object UpdateImageCommand : SimpleCommand(PluginMain, "更新乐土攻略", "UpdateStrategy") {
     @Handler
     suspend fun handle(context: CommandSender) {
         context.sendMessage("开始更新乐土攻略，可能会需要一段时间，请耐心等待")
@@ -63,31 +63,18 @@ object UpdateImageCommand : SimpleCommand(PluginMain, "更新乐土攻略", "Upd
 }
 
 object AddConfigCommand : CompositeCommand(PluginMain, "RealmCommand", "realmcommand", "乐土指令") {
-    @SubCommand("新建", "新增", "new", "re")
-    suspend fun reConfig(context: CommandSender, imageName: String, command: String) {
+    @SubCommand("新建", "新增", "覆盖", "new", "re")
+    suspend fun newConfig(context: CommandSender, imageName: String, command: String) {
         val list = command.split(",", "，")
-        var switch = true
-        list.forEach {
-            if (switch) {
-                ElysianRealmConfig.ElysianRealmConfig[imageName] = setOf(
-                    it
-                )
-                switch = false
-            } else {
-                ElysianRealmConfig.ElysianRealmConfig[imageName] =
-                    ElysianRealmConfig.ElysianRealmConfig[imageName]!! + setOf(
-                        it
-                    )
-            }
-        }
+        newStrategy(list, imageName)
         context.sendMessage("新建成功：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
             .toString())
     }
 
     @SubCommand("添加", "追加", "add")
     suspend fun addConfig(context: CommandSender, imageName: String, command: String) {
+        val list = command.split(",", "，")
         try {
-            val list = command.split(",", "，")
             list.forEach {
                 ElysianRealmConfig.ElysianRealmConfig[imageName] =
                     ElysianRealmConfig.ElysianRealmConfig[imageName]!! + setOf(
@@ -97,8 +84,22 @@ object AddConfigCommand : CompositeCommand(PluginMain, "RealmCommand", "realmcom
             context.sendMessage("添加成功：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
                 .toString())
         } catch (e: Exception) {
-            context.sendMessage("$e\n添加失败，请检查追加指令是否存在\n找到的集合：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
-                .toString())
+            if (ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }.isEmpty()) {
+                //没有则新建后添加
+                newStrategy(list, imageName)
+                context.sendMessage("没有找到名称为'${imageName}'的集合\n已新建后添加：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
+                    .toString())
+            }
+        }
+    }
+
+    @SubCommand("删除", "remove")
+    suspend fun reConfig(context: CommandSender, imageName: String) {
+        if (ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }.isNotEmpty()) {
+            ElysianRealmConfig.ElysianRealmConfig.remove(imageName)
+            context.sendMessage("删除'${imageName}'成功")
+        } else {
+            context.sendMessage("没有找到名称为'${imageName}'的集合")
         }
     }
 
@@ -122,4 +123,22 @@ fun clearStream(inputStream: InputStream?): String {
         info += line
     }
     return info
+}
+
+//新增一个攻略
+fun newStrategy(list: List<String>, imageName: String) {
+    var switch = true
+    list.forEach {
+        if (switch) {
+            ElysianRealmConfig.ElysianRealmConfig[imageName] = setOf(
+                it
+            )
+            switch = false
+        } else {
+            ElysianRealmConfig.ElysianRealmConfig[imageName] =
+                ElysianRealmConfig.ElysianRealmConfig[imageName]!! + setOf(
+                    it
+                )
+        }
+    }
 }

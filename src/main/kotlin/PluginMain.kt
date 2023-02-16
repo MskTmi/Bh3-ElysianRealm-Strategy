@@ -12,8 +12,6 @@ import net.mamoe.mirai.event.events.NewFriendRequestEvent
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.info
 import java.io.*
-import java.nio.charset.Charset
-
 
 object PluginMain : KotlinPlugin(
     JvmPluginDescription(

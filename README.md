@@ -6,7 +6,7 @@
 
 1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹;
 
-2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.5.0.mirai2.jar` 放置在plugins文件夹;
+2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.5.1.mirai2.jar` 放置在plugins文件夹;
 
 3. 初次使用私聊机器人输入 `/获取乐土攻略` 自动获取攻略图片;
 

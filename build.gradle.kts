@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.example"
-version = "1.5.0"
+version = "1.5.1"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public") // 阿里云国内代理仓库

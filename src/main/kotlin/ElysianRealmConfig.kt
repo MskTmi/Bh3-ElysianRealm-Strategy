@@ -199,14 +199,14 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             ),
             "First" to setOf(
                 "始源乐土",
+                "始源大招流",
+                "始源大招流乐土"
+            ),
+            "First_Branch" to setOf(
                 "始源之律者乐土",
                 "始源分支流",
                 "始源蓄力流",
                 "始源分支流乐土"
-            ),
-            "First_Skill" to setOf(
-                "始源大招流",
-                "始源大招流乐土"
             ),
             "Finally" to setOf(
                 "终焉乐土",
@@ -216,6 +216,14 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "终焉分支流",
                 "终焉蓄力流",
                 "终焉分支流乐土"
+            ),
+            "ShadowKnight" to setOf(
+                "月轮乐土"
+            ),
+            "Susana" to setOf(
+                "苏莎娜乐土",
+                "苏珊娜乐土",
+                "热砂乐土"
             )
         )
     )

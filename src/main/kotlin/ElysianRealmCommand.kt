@@ -43,7 +43,8 @@ object UpdateImageCommand : SimpleCommand(PluginMain, "更新乐土攻略", "Upd
                 context.sendMessage("已经是最新了")
             } else {
                 context.sendMessage("乐土攻略更新完成")
-                context.sendMessage("[请]在config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml中添加新角色触发词")
+                context.sendMessage("[请]使用'/RealmCommand add [imageName] [command]'添加新角色触发词")
+                context.sendMessage("或关闭机器人后在'config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml'中手动添加")
                 context.sendMessage(inputInfo)
             }
         } else {
@@ -63,15 +64,8 @@ object UpdateImageCommand : SimpleCommand(PluginMain, "更新乐土攻略", "Upd
 }
 
 object AddConfigCommand : CompositeCommand(PluginMain, "RealmCommand", "realmcommand", "乐土指令") {
-    @SubCommand("新建", "新增", "覆盖", "new", "re")
-    suspend fun newConfig(context: CommandSender, imageName: String, command: String) {
-        val list = command.split(",", "，")
-        newStrategy(list, imageName)
-        context.sendMessage("新建成功：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
-            .toString())
-    }
 
-    @SubCommand("添加", "追加", "add")
+    @SubCommand("添加", "追加", "add","new")
     suspend fun addConfig(context: CommandSender, imageName: String, command: String) {
         val list = command.split(",", "，")
         try {
@@ -87,13 +81,13 @@ object AddConfigCommand : CompositeCommand(PluginMain, "RealmCommand", "realmcom
             if (ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }.isEmpty()) {
                 //没有则新建后添加
                 newStrategy(list, imageName)
-                context.sendMessage("没有找到名称为'${imageName}'的集合\n已新建后添加：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
+                context.sendMessage("已新建后添加：" + ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }
                     .toString())
             }
         }
     }
 
-    @SubCommand("删除", "remove")
+    @SubCommand("删除", "remove","del")
     suspend fun reConfig(context: CommandSender, imageName: String) {
         if (ElysianRealmConfig.ElysianRealmConfig.filter { it.key == imageName }.isNotEmpty()) {
             ElysianRealmConfig.ElysianRealmConfig.remove(imageName)

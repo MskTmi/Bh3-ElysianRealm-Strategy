@@ -22,12 +22,10 @@
 |:---------------------------------------------------------|:----------------|
 | `/<GetStrategy 获取乐土攻略>`                                  | 获取乐土攻略          |
 | `/<UpdateStrategy 更新乐土攻略>`                               | 更新乐土攻略          |
-| `/<RealmCommand 乐土指令> <new 新建> [imageName] [command]`    | 新增/覆盖一个攻略并添加触发词 |
 | `/<RealmCommand 乐土指令> <add 添加> [imageName] [command]`    | 为攻略添加触发词        |
 | `/<RealmCommand 乐土指令> <remove 删除> [imageName] [command]` | 删除一个攻略          |
 
 - `/获取乐土攻略` or `/GetStrategy`获取乐土攻略
-- `/RealmCommand new 菲莉丝 猫猫乐土` 新增/覆盖一个攻略并添加一个或多个触发词（使用`,`分割）
 - `/RealmCommand add 菲莉丝 帕朵乐土,菲莉丝乐土` 为一个攻略并添加一个或多个触发词（使用`,`分割）
 
 
@@ -37,7 +35,6 @@
    
 2. `[imageName]`为ElysianRealm-Data下添加的图片名，`[command]`为触发词，在群聊内输入触发词可以发送对应的图片
    - 例 `/RealmCommand add 菲莉丝 猫猫乐土` 指令为Mirai/data/ElysianRealm-Data文件夹下的`菲莉丝.jpg`添加"猫猫乐土"为触发词
-3. 使用`/RealmCommand new`新建攻略时会覆盖同名攻略
 
 ## 手动添加角色
 
@@ -48,12 +45,12 @@
 > 图片名为ElysianRealmConfig.yml 中添加的角色名称 + jpg  
   支持主流图片后缀名(jpeg,png,gif)
 
-> 插件功能为根据关键词触发图片，可自定其他内容;
+> 插件功能为根据关键词触发图片，可自定其他内容
 > 
 ## 常见问题
-1. 获取乐土攻略功能仅支持群聊，私聊机器人无效;
-2.  `#获取乐土攻略` 与 `#更新乐土攻略` 功能依赖Github,请确保网络通畅;
-3. 无法使用`#获取乐土攻略`也可在Mirai/data目录下打开Shell输入 `git clone https://github.com/MskTim/ElysianRealm-Data.git` 手动获取;
+1. 获取乐土攻略功能仅支持群聊，私聊机器人无效
+2.  `#获取乐土攻略` 与 `#更新乐土攻略` 功能依赖Github,请确保网络通畅
+3. 无法使用`#获取乐土攻略`也可在Mirai/data目录下打开Shell输入 `git clone https://github.com/MskTim/ElysianRealm-Data.git` 手动获取
 4. 自 `1.4.0` 版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
 5. 使用指令需要先添加自己QQ号为管理员
 

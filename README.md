@@ -27,6 +27,7 @@
 |:---------------------------------------------------------|:----------------|
 | `/<GetStrategy 获取乐土攻略>`                                  | 获取乐土攻略          |
 | `/<UpdateStrategy 更新乐土攻略>`                               | 更新乐土攻略          |
+| `/<RealmCommand 乐土指令> <list 列表>`                         | 查看攻略列表          |
 | `/<RealmCommand 乐土指令> <add 添加> [imageName] [command]`    | 为攻略添加触发词        |
 | `/<RealmCommand 乐土指令> <remove 删除> [imageName] [command]` | 删除一个攻略          |
 

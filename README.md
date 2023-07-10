@@ -29,7 +29,7 @@
 | `/<UpdateStrategy 更新乐土攻略>`                               | 更新乐土攻略          |
 | `/<RealmCommand 乐土指令> <list 列表>`                         | 查看攻略列表          |
 | `/<RealmCommand 乐土指令> <add 添加> [imageName] [command]`    | 为攻略添加触发词        |
-| `/<RealmCommand 乐土指令> <remove 删除> [imageName] [command]` | 删除一个攻略          |
+| `/<RealmCommand 乐土指令> <remove 删除> [imageName]`           | 删除一个攻略          |
 
 - `/获取乐土攻略` or `/GetStrategy`获取乐土攻略
 - `/RealmCommand add 菲莉丝 帕朵乐土,菲莉丝乐土` 为一个攻略并添加一个或多个触发词（使用`,`分割）

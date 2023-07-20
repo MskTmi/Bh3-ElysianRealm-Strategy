@@ -66,9 +66,11 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "雷律乐土"
             ),
             "Thunder_Attack" to setOf(
+                "雷律乐土3",
                 "雷律平A流"
             ),
             "Thunder_Punishment" to setOf(
+                "雷律乐土2",
                 "雷律天罚流"
             ),
             "Rosemary" to setOf(
@@ -146,6 +148,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "荣光乐土"
             ),
             "Human_Branch" to setOf(
+                "人律乐土2",
                 "人律蓄力流",
                 "人律纯蓄流",
                 "人律蓄力"
@@ -160,6 +163,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "v2v乐土"
             ),
             "Void_Skill" to setOf(
+                "女王乐土2",
                 "女王大招流",
                 "空律大招流"
             ),
@@ -187,12 +191,14 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "舞卡乐土"
             ),
             "Truth_Weapon" to setOf(
+                "真理乐土2",
                 "真理武器流",
                 "真律武器流",
                 "真鸭武器流",
                 "真理之律者武器流"
             ),
             "Eclipse_Branch" to setOf(
+                "真红乐土2",
                 "姬子蓄力流",
                 "真红蓄力流",
                 "月蚀蓄力流"
@@ -203,6 +209,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "始源大招流乐土"
             ),
             "First_Branch" to setOf(
+                "始源乐土2",
                 "始源之律者乐土",
                 "始源分支流",
                 "始源蓄力流",
@@ -213,6 +220,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "终焉之律者乐土"
             ),
             "Finally_Branch" to setOf(
+                "终焉乐土2",
                 "终焉分支流",
                 "终焉蓄力流",
                 "终焉分支流乐土"
@@ -224,6 +232,50 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "苏莎娜乐土",
                 "苏珊娜乐土",
                 "热砂乐土"
+            ),
+            "Dreamweaver" to setOf(
+                "羽兔乐土",
+                "羽兔投矛流",
+                "羽兔大招流"
+            ),
+            "Dreamweaver_Weapon" to setOf(
+                "羽兔乐土2",
+                "羽兔摇旗流",
+                "羽兔武器流"
+            ),
+            "TerminalAide0017" to setOf(
+                "0017乐土",
+                "终末乐土",
+                "终末协理乐土",
+                "普罗米修斯乐土",
+                "普鸭乐土"
+            ),
+            "ShigureKira" to setOf(
+                "时雨绮罗乐土",
+                "时雨绮罗大招流",
+                "时雨乐土",
+                "绮罗乐土"
+            ),
+            "ShigureKira_Branch" to setOf(
+                "绮罗乐土2",
+                "时雨绮罗乐土2",
+                "时雨绮罗蓄力流",
+                "时雨绮罗分支流",
+                "绮罗分支流"
+            ),
+            "Rebirth_Life" to setOf(
+                "死律乐土",
+                "死律塑灵流",
+                "死律塑灵流乐土",
+                "塑灵流乐土",
+                "死生之律者乐土"
+            ),
+            "Rebirth_Death" to setOf(
+                "死律乐土2",
+                "死生之律者乐土2",
+                "死律结命流",
+                "死律结命流乐土",
+                "结命流乐土"
             )
         )
     )

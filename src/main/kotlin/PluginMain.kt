@@ -17,7 +17,7 @@ object PluginMain : KotlinPlugin(
     JvmPluginDescription(
         id = "Bh3.ElysianRealm.Strategy",
         name = "ElysianRealm Strategy",
-        version = "1.5.2",
+        version = "1.5.3",
     ) {
         author("MskTim")
         info("""崩坏3往世乐土攻略插件""")

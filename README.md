@@ -66,8 +66,8 @@
 6. 自 `1.4.0` 版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
 
 ## 其他
-- 兼容mirai-console 2.14.0
+- 兼容mirai-console 2.15.0
+- 乐土攻略图源：崩坏3通讯中心（月光中心）
 - 图片素材来源于网络，仅供交流学习使用
-- 乐土攻略图源：崩坏3通讯中心
-- 碰到奇怪bug可以联系我：1226594277(qq)
+- 碰到奇怪bug可以发issues或是联系我：1226594277(qq)
 - 最后「请」点个 stars⭐吧~

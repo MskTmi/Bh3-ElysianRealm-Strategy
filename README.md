@@ -9,6 +9,7 @@
 2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.5.1.mirai2.jar` 放置在plugins文件夹;
 
 3. 初次使用私聊机器人输入 `/获取乐土攻略` 自动获取攻略图片;
+> `/获取乐土攻略`功能需要安装[git](https://git-scm.com)并添加环境变量
 
 ## 攻略更新
 

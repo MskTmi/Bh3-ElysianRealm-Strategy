@@ -6,7 +6,7 @@
 
 1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹;
 
-2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.5.1.mirai2.jar` 放置在plugins文件夹;
+2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.5.3.mirai2.jar` 放置在plugins文件夹;
 
 3. 初次使用私聊机器人输入 `/获取乐土攻略` 自动获取攻略图片;
 > `/获取乐土攻略`功能需要安装[git](https://git-scm.com)并添加环境变量
@@ -63,7 +63,7 @@
 2. 使用指令需要先添加自己QQ号为管理员
 3.  `/获取乐土攻略` 与 `/更新乐土攻略` 功能依赖Github,请确保网络通畅
 4.  `/获取乐土攻略` 与 `/更新乐土攻略` 失败与成功均会返回提示信息，请勿反复请求
-5. 无法使用 `/获取乐土攻略` 也可在Mirai/data目录下打开Shell输入 `git clone https://github.com/MskTim/ElysianRealm-Data.git` 获取（不影响后续使用指令更新）
+5. 无法使用 `/获取乐土攻略` 也可在Mirai/data目录下打开Shell输入 `git clone --depth=1 https://github.com/MskTmi/ElysianRealm-Data.git` 获取（不影响后续使用指令更新）
 6. 自 `1.4.0` 版本起将攻略文件名更改为英文(解决部分Linux下的中文文件名编码的问题),旧版本在更新后需删除Mirai/config/Bh3.ElysianRealm.Strategy目录下的ElysianRealmConfig.yml文件后重启mirai (初次使用无视)
 
 ## 其他

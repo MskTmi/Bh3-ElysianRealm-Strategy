@@ -213,6 +213,23 @@ ElysianRealmConfig:
     - 结命流乐土
   Rebirth_Swap:
     - 死律乐土3
-    - 死律调换流
-    - 死律调换流乐土
-    - 调换流乐土
+    - 死律凋换流
+    - 死律凋换流乐土
+    - 凋换流乐土
+  Sirin_Attack:
+    - 西琳乐土2
+    - 河豚乐土2
+    - 西琳普攻流
+  Sirin_Branch:
+    - 西琳乐土
+    - 河豚乐土
+    - 西琳蓄力流
+    - 西琳分支流
+  TheresaLuna_Weapon:
+    - 月下誓约乐土
+    - 大月下乐土
+    - 月下誓约武器流
+    - 大月下武器流
+  TheresaLuna_Attack:
+    - 月下誓约普攻流
+    - 大月下普攻流

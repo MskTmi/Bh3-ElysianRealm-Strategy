@@ -1,4 +1,4 @@
-package org.example.mirai.plugin
+package net.msktmi.mirai.plugin
 
 import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.ValueDescription
@@ -276,6 +276,33 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "死律结命流",
                 "死律结命流乐土",
                 "结命流乐土"
+            ),
+            "Rebirth_Swap" to setOf(
+                "死律乐土3",
+                "死律凋换流",
+                "死律凋换流乐土",
+                "凋换流乐土"
+            ),
+            "Sirin_Attack" to setOf(
+                "西琳乐土2",
+                "河豚乐土2",
+                "西琳普攻流"
+            ),
+            "Sirin_Branch" to setOf(
+                "西琳乐土",
+                "西琳蓄力流",
+                "西琳分支流"
+            ),
+            "TheresaLuna_Weapon" to setOf(
+                "月下誓约乐土",
+                "大月下乐土",
+                "月下誓约武器流",
+                "大月下武器流"
+            ),
+            "TheresaLuna_Attack" to setOf(
+                "月下誓约普攻流",
+                "大月下普攻流",
+                "大月下乐土2"
             )
         )
     )

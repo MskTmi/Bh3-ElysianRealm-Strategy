@@ -38,10 +38,10 @@
 
 ### 注意：  
 1. 在聊天环境执行指令需先安装 [chat-command](https://github.com/project-mirai/chat-command) 并添加权限（攻略获取不受影响）  
-   - 安装chat-command后私聊机器人输入`/perm permit u123456 *:*` 添加权限，允许用户 123456 执行任意指令
+   > 安装chat-command后私聊机器人输入`/perm permit u123456 *:*` 添加权限，允许用户 123456 执行任意指令
    
 2. `[imageName]` 为ElysianRealm-Data下添加的图片名，`[command]` 为触发词，在群聊内输入触发词可以发送对应的图片
-   - 例 `/RealmCommand add 菲莉丝 猫猫乐土` 指令为Mirai/data/ElysianRealm-Data文件夹下的 `菲莉丝.jpg` 添加"猫猫乐土"为触发词
+   > 例 `/RealmCommand add 菲莉丝 猫猫乐土` 指令为Mirai/data/ElysianRealm-Data文件夹下的 `菲莉丝.jpg` 添加"猫猫乐土"为触发词
 3. 获取与更新攻略均使用 GitHub 图床，请确保保持网络畅通
 
 ## 手动添加乐土攻略图（不推荐）

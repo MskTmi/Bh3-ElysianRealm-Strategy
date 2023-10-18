@@ -1,4 +1,4 @@
-package org.example.mirai.plugin
+package net.msktmi.mirai.plugin
 
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
@@ -17,7 +17,7 @@ object PluginMain : KotlinPlugin(
     JvmPluginDescription(
         id = "Bh3.ElysianRealm.Strategy",
         name = "ElysianRealm Strategy",
-        version = "1.5.3",
+        version = "1.6.0",
     ) {
         author("MskTim")
         info("""崩坏3往世乐土攻略插件""")
@@ -31,6 +31,7 @@ object PluginMain : KotlinPlugin(
         CommandManager.registerCommand(AddConfigCommand)
         //启用配置文件
         ElysianRealmConfig.reload()
+        Config.reload()
         val eventChannel = GlobalEventChannel.parentScope(this)
         eventChannel.subscribeAlways<GroupMessageEvent> {
             //群消息

@@ -1,4 +1,4 @@
-package org.example.mirai.plugin
+package net.msktmi.mirai.plugin
 
 import net.mamoe.mirai.console.command.*
 import net.mamoe.mirai.message.data.*
@@ -11,7 +11,8 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
     @Handler
     suspend fun handle(context: CommandSender) {
         context.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
-        val command = "git clone --depth=1 https://github.com/MskTmi/ElysianRealm-Data.git data/ElysianRealm-Data/"
+        val repository = Config.repository["url"]
+        val command = "git clone --depth=1 $repository data/ElysianRealm-Data/"
         val pro = Runtime.getRuntime().exec(command)
         if (pro.waitFor() == 0) {
             context.sendMessage("乐土攻略获取完成")

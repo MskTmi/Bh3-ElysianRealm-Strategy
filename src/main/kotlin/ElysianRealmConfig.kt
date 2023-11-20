@@ -1,4 +1,4 @@
-package net.msktmi.mirai.plugin
+package com.msktmi.mirai.plugin
 
 import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.ValueDescription
@@ -234,12 +234,12 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "热砂乐土"
             ),
             "Dreamweaver" to setOf(
-                "羽兔乐土",
+                "羽兔乐土2",
                 "羽兔投矛流",
                 "羽兔大招流"
             ),
             "Dreamweaver_Weapon" to setOf(
-                "羽兔乐土2",
+                "羽兔乐土",
                 "羽兔摇旗流",
                 "羽兔武器流"
             ),
@@ -264,7 +264,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "绮罗分支流"
             ),
             "Rebirth_Life" to setOf(
-                "死律乐土",
+                "死律乐土3",
                 "死律塑灵流",
                 "死律塑灵流乐土",
                 "塑灵流乐土",
@@ -278,7 +278,7 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
                 "结命流乐土"
             ),
             "Rebirth_Swap" to setOf(
-                "死律乐土3",
+                "死律乐土",
                 "死律凋换流",
                 "死律凋换流乐土",
                 "凋换流乐土"
@@ -290,19 +290,32 @@ object ElysianRealmConfig : AutoSavePluginConfig("ElysianRealmConfig") {
             ),
             "Sirin_Branch" to setOf(
                 "西琳乐土",
+                "河豚乐土",
                 "西琳蓄力流",
                 "西琳分支流"
             ),
             "TheresaLuna_Weapon" to setOf(
                 "月下誓约乐土",
-                "大月下乐土",
+                "大月下乐土2",
                 "月下誓约武器流",
                 "大月下武器流"
             ),
             "TheresaLuna_Attack" to setOf(
                 "月下誓约普攻流",
                 "大月下普攻流",
-                "大月下乐土2"
+                "大月下乐土"
+            ),
+            "Sentience_brick" to setOf(
+                "识律板砖流",
+                "识律乐土2"
+            ),
+            "CosmicExpression_Parry" to setOf(
+                "大格蕾修乐土",
+                "大格蕾修弹反流"
+            ),
+            "TheresaLuna_Attack" to setOf(
+                "大格蕾修普攻流",
+                "大格蕾修乐土2"
             )
         )
     )

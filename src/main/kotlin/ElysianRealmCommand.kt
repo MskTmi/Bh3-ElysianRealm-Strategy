@@ -1,4 +1,4 @@
-package net.msktmi.mirai.plugin
+package com.msktmi.mirai.plugin
 
 import net.mamoe.mirai.console.command.*
 import net.mamoe.mirai.message.data.*

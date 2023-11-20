@@ -1,4 +1,4 @@
-package net.msktmi.mirai.plugin
+package com.msktmi.mirai.plugin
 
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription

@@ -1,4 +1,4 @@
-package net.msktmi.mirai.plugin
+package com.msktmi.mirai.plugin
 import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.ValueDescription
 import net.mamoe.mirai.console.data.value

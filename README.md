@@ -12,13 +12,19 @@
 > `/获取乐土攻略`功能需要安装 [git](https://git-scm.com) 并添加环境变量
 
 ## 攻略更新
+### 图片更新
 
-- 后续乐土更新可使用 `/更新乐土攻略` 获取新版攻略（推荐），或去 [图床](https://github.com/MskTim/ElysianRealm-Data) 手动更新  
+后续乐土更新可使用 `/更新乐土攻略` 获取新版攻略（推荐），或去 [图床](https://github.com/MskTim/ElysianRealm-Data) 手动更新
+> 手动上传图床,在不弃坑的情况下可能会有一到两天延迟
 
-> 手动上传图床,在不弃坑的情况下可能会有一到两天延迟  
+### 触发词更新
 
- - 使用`/更新乐土攻略`更新后「请」使用[指令](#指令)为新获取的攻略添加触发词   
-> 也可在 config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml 中手动添加
+- 使用`/更新乐土攻略`更新后「请」使用 [指令](#指令) 为新获取的攻略添加触发词，可以在 [这里](https://github.com/MskTmi/ElysianRealm-Data/releases) 拷贝最新的攻略的触发词（随图片同步更新）
+   > 也可在 config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml 中手动添加
+   
+- 或下载 [ElysianRealmConfig.yml](https://github.com/MskTmi/Bh3-ElysianRealm-Strategy/blob/master/config/Bh3.ElysianRealm.Strategy/ElysianRealmConfig.yml) 文件自行替换
+   > 不定期更新,推荐使用指令添加触发词
+   
 ## 效果
 
 ![IMG_6327](https://user-images.githubusercontent.com/87525977/187026836-b4310fe8-b213-4249-91f3-e0864f8c4d84.PNG)

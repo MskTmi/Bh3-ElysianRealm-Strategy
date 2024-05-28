@@ -4,12 +4,12 @@
 
 ## 食用方法
 
-1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹
+1. 运行 [Mirai Console](https://github.com/mamoe/mirai) 生成plugins文件夹  
+2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.6.0.mirai2.jar` 放置在plugins文件夹  
+3. 初次运行后私聊机器人输入 `/获取乐土攻略` 自动获取攻略图片  
 
-2. 下载 [ElysianRealm](https://github.com/MskTim/Bh3-ElysianRealm-Strategy/releases) 将 `ElysianRealm-1.6.0.mirai2.jar` 放置在plugins文件夹
-
-3. 初次使用私聊机器人输入 `/获取乐土攻略` 自动获取攻略图片
 > `/获取乐土攻略`功能需要安装 [git](https://git-scm.com) 并添加环境变量
+> 乐土攻略更新频繁，可以先替换 `ElysianRealmConfig.yml` 文件后再添加缺少的触发词，详情见[触发词更新](#触发词更新)
 
 ## 攻略更新
 ### 图片更新

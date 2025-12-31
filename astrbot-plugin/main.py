@@ -244,7 +244,11 @@ class ElysianRealmStrategy(Star):
             keyword_display = keywords[0] if keywords else latest_char
             
             # Format timestamp for display
-            update_time_str = datetime.fromisoformat(latest_time).strftime("%Y-%m-%d")
+            try:
+                update_time_str = datetime.fromisoformat(latest_time).strftime("%Y-%m-%d")
+            except (ValueError, TypeError) as e:
+                self.logger.error(f"Invalid timestamp format: {latest_time}, error: {e}")
+                update_time_str = "未知日期"
             
             await self.context.send_message(
                 event.unified_msg_origin,
@@ -349,6 +353,11 @@ class ElysianRealmStrategy(Star):
             )
             old_commit = result_hash.stdout.strip() if result_hash.returncode == 0 else None
             
+            # Validate commit hash format (40 hex characters for SHA-1)
+            if old_commit and not (len(old_commit) == 40 and all(c in '0123456789abcdef' for c in old_commit.lower())):
+                self.logger.warning(f"Invalid commit hash format: {old_commit}")
+                old_commit = None
+            
             # Pull updates
             result = subprocess.run(
                 ["git", "-C", str(self.data_dir), "pull", "--no-rebase"],
@@ -375,13 +384,19 @@ class ElysianRealmStrategy(Star):
                             timeout=30
                         )
                         if result_diff.returncode == 0:
-                            changed_files = result_diff.stdout.strip().split('\n')
+                            diff_output = result_diff.stdout.strip()
+                            # Check if there's actual output before splitting
+                            if diff_output:
+                                changed_files = diff_output.split('\n')
+                            else:
+                                changed_files = []
+                            
                             # Filter for image files and extract character names
                             image_extensions = ['.png', '.PNG', '.jpg', '.jpeg', '.JPG', '.gif', '.GIF']
                             current_time = datetime.now().isoformat()
                             
                             for file_path in changed_files:
-                                if file_path:
+                                if file_path:  # Skip empty strings
                                     file_name = Path(file_path).stem
                                     file_ext = Path(file_path).suffix
                                     if file_ext in image_extensions:
@@ -486,8 +501,11 @@ class ElysianRealmStrategy(Star):
             
             result += f"{image_name}: {', '.join(keywords)}"
             if last_updated:
-                update_time = datetime.fromisoformat(last_updated).strftime("%Y-%m-%d")
-                result += f" (更新于: {update_time})"
+                try:
+                    update_time = datetime.fromisoformat(last_updated).strftime("%Y-%m-%d")
+                    result += f" (更新于: {update_time})"
+                except (ValueError, TypeError) as e:
+                    self.logger.error(f"Invalid timestamp for {image_name}: {last_updated}, error: {e}")
             result += "\n"
         
         await self.context.send_message(

@@ -2,44 +2,58 @@
 # 此文件展示了攻略触发词的配置格式
 # 实际使用时，该文件会在 data/plugin_data/elysian_realm_strategy/strategy_config.yaml 自动生成
 
-# 格式说明：
+# 新版本格式说明：
 # 图片名称（英文）:
-#   - 触发词1
-#   - 触发词2
-#   - 触发词3
+#   keywords:
+#     - 触发词1
+#     - 触发词2
+#     - 触发词3
+#   last_updated: 2024-01-15T10:30:00  # 最后更新时间（自动更新）
 
 # 人之律者
 Human:
-  - 人律乐土
-  - 爱律乐土
+  keywords:
+    - 人律乐土
+    - 爱律乐土
+  last_updated: null
 
 # 空之律者
 Void:
-  - 空律乐土
-  - 女王乐土
+  keywords:
+    - 空律乐土
+    - 女王乐土
+  last_updated: null
 
 # 格蕾修（繁星）
 Starry:
-  - 繁星乐土
-  - 格蕾修乐土
-  - 绘世乐土
+  keywords:
+    - 繁星乐土
+    - 格蕾修乐土
+    - 绘世乐土
+  last_updated: null
 
 # 帕朵菲利丝
 Felis:
-  - 帕朵乐土
-  - 猫猫乐土
-  - 帕朵菲利丝乐土
-  - 菲利丝乐土
+  keywords:
+    - 帕朵乐土
+    - 猫猫乐土
+    - 帕朵菲利丝乐土
+    - 菲利丝乐土
+  last_updated: null
 
 # 伊甸（黄金）
 Golden:
-  - 伊甸乐土
-  - 黄金乐土
+  keywords:
+    - 伊甸乐土
+    - 黄金乐土
+  last_updated: null
 
 # 阿波尼亚（戒律）
 Disciplinary:
-  - 阿波尼亚乐土
-  - 戒律乐土
+  keywords:
+    - 阿波尼亚乐土
+    - 戒律乐土
+  last_updated: null
 
 # 更多角色配置请参考 main.py 中的默认配置
 # 或查看官方图床：https://github.com/MskTmi/ElysianRealm-Data
@@ -49,5 +63,33 @@ Disciplinary:
 # 2. 在这里添加配置，图片名称不含扩展名
 # 例如：
 # CustomCharacter:
-#   - 自定义触发词1
-#   - 自定义触发词2
+#   keywords:
+#     - 自定义触发词1
+#     - 自定义触发词2
+#   last_updated: null  # 首次添加时为 null，更新时会自动设置
+
+# 新功能：主唤醒词
+# 使用 "最新攻略" 或 "最新乐土攻略" 或 "最新乐土" 可以查看最近更新的攻略
+
+# 多流派支持示例：
+# 同一角色的不同流派可以共享关键词，系统会自动返回最新更新的版本
+# 
+# 例如：猫猫有普攻流和大招流两个攻略
+# Felis_Attack:
+#   keywords:
+#     - 猫猫乐土        # 共享关键词
+#     - 猫猫普攻流      # 特定关键词
+#     - 帕朵普攻流
+#   last_updated: '2024-01-10T10:00:00+00:00'
+#
+# Felis_Ultimate:
+#   keywords:
+#     - 猫猫乐土        # 共享关键词（和上面一样）
+#     - 猫猫大招流      # 特定关键词
+#     - 帕朵大招流
+#   last_updated: '2024-01-15T10:00:00+00:00'  # 更新时间更晚
+#
+# 用户发送 "猫猫乐土" 时，会自动返回 Felis_Ultimate（因为更新时间更晚）
+# 用户发送 "猫猫普攻流" 时，会返回 Felis_Attack（特定关键词）
+# 用户发送 "猫猫大招流" 时，会返回 Felis_Ultimate（特定关键词）
+

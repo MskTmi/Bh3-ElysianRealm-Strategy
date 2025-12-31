@@ -1,0 +1,53 @@
+# 示例攻略配置文件
+# 此文件展示了攻略触发词的配置格式
+# 实际使用时，该文件会在 data/plugin_data/elysian_realm_strategy/strategy_config.yaml 自动生成
+
+# 格式说明：
+# 图片名称（英文）:
+#   - 触发词1
+#   - 触发词2
+#   - 触发词3
+
+# 人之律者
+Human:
+  - 人律乐土
+  - 爱律乐土
+
+# 空之律者
+Void:
+  - 空律乐土
+  - 女王乐土
+
+# 格蕾修（繁星）
+Starry:
+  - 繁星乐土
+  - 格蕾修乐土
+  - 绘世乐土
+
+# 帕朵菲利丝
+Felis:
+  - 帕朵乐土
+  - 猫猫乐土
+  - 帕朵菲利丝乐土
+  - 菲利丝乐土
+
+# 伊甸（黄金）
+Golden:
+  - 伊甸乐土
+  - 黄金乐土
+
+# 阿波尼亚（戒律）
+Disciplinary:
+  - 阿波尼亚乐土
+  - 戒律乐土
+
+# 更多角色配置请参考 main.py 中的默认配置
+# 或查看官方图床：https://github.com/MskTmi/ElysianRealm-Data
+
+# 添加自定义攻略：
+# 1. 将图片放到 data/ElysianRealm-Data/ 目录
+# 2. 在这里添加配置，图片名称不含扩展名
+# 例如：
+# CustomCharacter:
+#   - 自定义触发词1
+#   - 自定义触发词2

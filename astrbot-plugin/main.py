@@ -7,11 +7,14 @@ import subprocess
 import yaml
 from pathlib import Path
 from typing import Dict, Set, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from astrbot.api.star import Star, Context, register
 from astrbot.api.event import AstrMessageEvent, MessageChain
 from astrbot.api.message.components import Plain, Image
+
+# Constants
+SHA1_HASH_LENGTH = 40
 
 
 @register(
@@ -361,8 +364,8 @@ class ElysianRealmStrategy(Star):
             )
             old_commit = result_hash.stdout.strip() if result_hash.returncode == 0 else None
             
-            # Validate commit hash format (40 hex characters for SHA-1)
-            if old_commit and not (len(old_commit) == 40 and all(c in '0123456789abcdef' for c in old_commit.lower())):
+            # Validate commit hash format (SHA-1: 40 hex characters)
+            if old_commit and not (len(old_commit) == SHA1_HASH_LENGTH and all(c in '0123456789abcdef' for c in old_commit.lower())):
                 self.logger.warning(f"Invalid commit hash format: {old_commit}")
                 old_commit = None
             
@@ -404,19 +407,17 @@ class ElysianRealmStrategy(Star):
                         )
                         if result_diff.returncode == 0:
                             diff_output = result_diff.stdout.strip()
-                            # Check if there's actual output before splitting
-                            if diff_output:
-                                # Use splitlines() for better cross-platform compatibility
-                                changed_files = diff_output.splitlines()
-                            else:
-                                changed_files = []
+                            # splitlines() returns empty list for empty string
+                            changed_files = diff_output.splitlines()
                             
                             # Filter for image files and extract character names
                             image_extensions = ['.png', '.PNG', '.jpg', '.jpeg', '.JPG', '.gif', '.GIF']
-                            current_time = datetime.now().isoformat()
+                            current_time = datetime.now(timezone.utc).isoformat()
                             
                             for file_path in changed_files:
-                                if file_path:  # Skip empty strings
+                                # Skip empty strings (though splitlines() shouldn't produce them)
+                                if not file_path:
+                                    continue
                                     file_name = Path(file_path).stem
                                     file_ext = Path(file_path).suffix
                                     if file_ext in image_extensions:
@@ -551,7 +552,7 @@ class ElysianRealmStrategy(Star):
         else:
             self.strategy_config[image_name] = {
                 "keywords": set(keyword_list),
-                "last_updated": datetime.now().isoformat()
+                "last_updated": datetime.now(timezone.utc).isoformat()
             }
         
         self._save_strategy_config()

@@ -93,9 +93,14 @@ git clone https://github.com/YourUsername/astrbot-elysian-realm-strategy.git ely
 
 ```
 data/
-└── elysian_realm_strategy/
-    ├── config.yaml              # 插件配置（仓库地址等）
-    └── strategy_config.yaml     # 攻略配置（角色名和触发词映射）
+├── plugin_data/
+│   └── elysian_realm_strategy/     # 插件专用数据目录
+│       ├── config.yaml              # 插件配置（仓库地址等）
+│       └── strategy_config.yaml     # 攻略配置（角色名和触发词映射）
+└── ElysianRealm-Data/              # 攻略图片数据（共享目录）
+    ├── Human.png
+    ├── Void.png
+    └── ...
 ```
 
 ### config.yaml

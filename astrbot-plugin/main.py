@@ -27,7 +27,10 @@ class ElysianRealmStrategy(Star):
         super().__init__(context)
         self.config_file = "config.yaml"
         self.strategy_config_file = "strategy_config.yaml"
-        self.data_dir = Path("data/ElysianRealm-Data")
+        # Use AstrBot's data directory for the plugin
+        plugin_data_dir = Path(context.get_data_dir())
+        self.config_dir = plugin_data_dir
+        self.data_dir = Path("data/ElysianRealm-Data")  # Shared data directory for images
         self.config: Dict[str, str] = {}
         self.strategy_config: Dict[str, Set[str]] = {}
         
@@ -37,7 +40,7 @@ class ElysianRealmStrategy(Star):
         
     def _load_config(self):
         """加载插件配置"""
-        config_path = Path(self.context.base_config.get("plugin_data_path", "data")) / "elysian_realm_strategy" / self.config_file
+        config_path = self.config_dir / self.config_file
         config_path.parent.mkdir(parents=True, exist_ok=True)
         
         if config_path.exists():
@@ -52,14 +55,14 @@ class ElysianRealmStrategy(Star):
             
     def _save_config(self):
         """保存插件配置"""
-        config_path = Path(self.context.base_config.get("plugin_data_path", "data")) / "elysian_realm_strategy" / self.config_file
+        config_path = self.config_dir / self.config_file
         config_path.parent.mkdir(parents=True, exist_ok=True)
         with open(config_path, 'w', encoding='utf-8') as f:
             yaml.dump(self.config, f, allow_unicode=True)
     
     def _load_strategy_config(self):
         """加载攻略配置（角色名称和触发词映射）"""
-        config_path = Path(self.context.base_config.get("plugin_data_path", "data")) / "elysian_realm_strategy" / self.strategy_config_file
+        config_path = self.config_dir / self.strategy_config_file
         
         if config_path.exists():
             with open(config_path, 'r', encoding='utf-8') as f:
@@ -138,13 +141,14 @@ class ElysianRealmStrategy(Star):
     
     def _save_strategy_config(self):
         """保存攻略配置"""
-        config_path = Path(self.context.base_config.get("plugin_data_path", "data")) / "elysian_realm_strategy" / self.strategy_config_file
+        config_path = self.config_dir / self.strategy_config_file
         config_path.parent.mkdir(parents=True, exist_ok=True)
         # Convert sets to lists for YAML serialization
         save_data = {k: list(v) for k, v in self.strategy_config.items()}
         with open(config_path, 'w', encoding='utf-8') as f:
             yaml.dump(save_data, f, allow_unicode=True)
     
+    @register.on_message
     async def on_message_create(self, event: AstrMessageEvent):
         """处理消息事件"""
         message_text = event.message_str.strip()

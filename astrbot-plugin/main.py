@@ -236,7 +236,8 @@ class ElysianRealmStrategy(Star):
         
         # 如果所有图片都没有时间戳，返回第一个
         if best_image is None:
-            self.logger.warning(f"No valid timestamps found for matching images, returning first match")
+            image_names = [img[0] for img in matching_images]
+            self.logger.warning(f"No valid timestamps found for matching images {image_names}, returning first match")
             return matching_images[0][0]
         
         return best_image

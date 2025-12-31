@@ -187,11 +187,17 @@ class ElysianRealmStrategy(Star):
             await self._send_latest_strategy(event)
             return
         
-        # 检查是否匹配触发词
+        # 检查是否匹配触发词 - 支持多个图片共享同一关键词
+        matching_images = []
         for image_name, config in self.strategy_config.items():
             if message_text in config["keywords"]:
-                await self._send_strategy_image(event, image_name)
-                return
+                matching_images.append((image_name, config.get("last_updated")))
+        
+        if matching_images:
+            # 如果有多个匹配，选择最近更新的
+            best_match = self._select_latest_image(matching_images)
+            await self._send_strategy_image(event, best_match)
+            return
         
         # 处理命令
         if message_text.startswith("/获取乐土攻略") or message_text.startswith("/GetStrategy"):
@@ -200,6 +206,40 @@ class ElysianRealmStrategy(Star):
             await self._update_strategy(event)
         elif message_text.startswith("/乐土指令") or message_text.startswith("/RealmCommand"):
             await self._realm_command(event, message_text)
+    
+    def _select_latest_image(self, matching_images: List[tuple]) -> str:
+        """
+        从多个匹配的图片中选择最近更新的
+        Args:
+            matching_images: List of (image_name, last_updated) tuples
+        Returns:
+            image_name of the most recently updated image
+        """
+        # 如果只有一个匹配，直接返回
+        if len(matching_images) == 1:
+            return matching_images[0][0]
+        
+        # 找出最近更新的
+        best_image = None
+        best_time_obj = None
+        
+        for image_name, last_updated in matching_images:
+            if last_updated:
+                try:
+                    time_obj = datetime.fromisoformat(last_updated)
+                    if best_time_obj is None or time_obj > best_time_obj:
+                        best_time_obj = time_obj
+                        best_image = image_name
+                except (ValueError, TypeError) as e:
+                    self.logger.error(f"Invalid timestamp for {image_name}: {last_updated}, error: {e}")
+                    continue
+        
+        # 如果所有图片都没有时间戳，返回第一个
+        if best_image is None:
+            self.logger.warning(f"No valid timestamps found for matching images, returning first match")
+            return matching_images[0][0]
+        
+        return best_image
     
     async def _send_strategy_image(self, event: AstrMessageEvent, image_name: str):
         """发送攻略图片"""

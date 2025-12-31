@@ -6,7 +6,8 @@ import os
 import subprocess
 import yaml
 from pathlib import Path
-from typing import Dict, Set, List
+from typing import Dict, Set, List, Optional
+from datetime import datetime
 
 from astrbot.api.star import Star, Context, register
 from astrbot.api.event import AstrMessageEvent, MessageChain
@@ -17,7 +18,7 @@ from astrbot.api.message.components import Plain, Image
     "elysian_realm_strategy",
     "MskTim",
     "崩坏3往世乐土攻略查询插件，可在聊天中根据关键词触发图片",
-    "2.0.0",
+    "2.1.0",
     "https://github.com/MskTmi/Bh3-ElysianRealm-Strategy"
 )
 class ElysianRealmStrategy(Star):
@@ -32,7 +33,8 @@ class ElysianRealmStrategy(Star):
         self.config_dir = plugin_data_dir
         self.data_dir = Path("data/ElysianRealm-Data")  # Shared data directory for images
         self.config: Dict[str, str] = {}
-        self.strategy_config: Dict[str, Set[str]] = {}
+        # New structure: character_name -> {"keywords": set, "last_updated": timestamp}
+        self.strategy_config: Dict[str, Dict] = {}
         
         # Load configurations
         self._load_config()
@@ -67,11 +69,24 @@ class ElysianRealmStrategy(Star):
         if config_path.exists():
             with open(config_path, 'r', encoding='utf-8') as f:
                 loaded = yaml.safe_load(f) or {}
-                # Convert list to set for each entry
-                self.strategy_config = {k: set(v) if isinstance(v, list) else v for k, v in loaded.items()}
+                # Migrate old format to new format if needed
+                for k, v in loaded.items():
+                    if isinstance(v, list):
+                        # Old format: character_name: [keywords]
+                        self.strategy_config[k] = {
+                            "keywords": set(v),
+                            "last_updated": None
+                        }
+                    elif isinstance(v, dict):
+                        # New format: character_name: {keywords: [], last_updated: timestamp}
+                        keywords = v.get("keywords", [])
+                        self.strategy_config[k] = {
+                            "keywords": set(keywords) if isinstance(keywords, list) else keywords,
+                            "last_updated": v.get("last_updated")
+                        }
         else:
-            # 默认攻略配置
-            self.strategy_config = {
+            # 默认攻略配置 - migrate to new format
+            default_config = {
                 "Human": {"人律乐土", "爱律乐土"},
                 "Void": {"空律乐土", "女王乐土"},
                 "Starry": {"繁星乐土", "格蕾修乐土", "绘世乐土"},
@@ -137,14 +152,25 @@ class ElysianRealmStrategy(Star):
                 "CosmicExpression_Parry": {"大格蕾修乐土", "大格蕾修弹反流"},
                 "CosmicExpression_Attack": {"大格蕾修普攻流", "大格蕾修乐土2"}
             }
+            # Convert to new format
+            for char_name, keywords in default_config.items():
+                self.strategy_config[char_name] = {
+                    "keywords": keywords,
+                    "last_updated": None
+                }
             self._save_strategy_config()
     
     def _save_strategy_config(self):
         """保存攻略配置"""
         config_path = self.config_dir / self.strategy_config_file
         config_path.parent.mkdir(parents=True, exist_ok=True)
-        # Convert sets to lists for YAML serialization
-        save_data = {k: list(v) for k, v in self.strategy_config.items()}
+        # Convert to serializable format
+        save_data = {}
+        for char_name, config in self.strategy_config.items():
+            save_data[char_name] = {
+                "keywords": list(config["keywords"]),
+                "last_updated": config["last_updated"]
+            }
         with open(config_path, 'w', encoding='utf-8') as f:
             yaml.dump(save_data, f, allow_unicode=True)
     
@@ -153,9 +179,14 @@ class ElysianRealmStrategy(Star):
         """处理消息事件"""
         message_text = event.message_str.strip()
         
+        # Check for "latest guide" keyword
+        if message_text in ["最新攻略", "最新乐土攻略", "最新乐土"]:
+            await self._send_latest_strategy(event)
+            return
+        
         # 检查是否匹配触发词
-        for image_name, keywords in self.strategy_config.items():
-            if message_text in keywords:
+        for image_name, config in self.strategy_config.items():
+            if message_text in config["keywords"]:
                 await self._send_strategy_image(event, image_name)
                 return
         
@@ -192,6 +223,38 @@ class ElysianRealmStrategy(Star):
         
         # 未找到图片
         self.logger.warning(f"未找到图片: {image_name}")
+    
+    async def _send_latest_strategy(self, event: AstrMessageEvent):
+        """发送最近更新的攻略"""
+        # Find the character with the most recent update
+        latest_char = None
+        latest_time = None
+        
+        for char_name, config in self.strategy_config.items():
+            last_updated = config.get("last_updated")
+            if last_updated:
+                if latest_time is None or last_updated > latest_time:
+                    latest_time = last_updated
+                    latest_char = char_name
+        
+        if latest_char:
+            # Get first keyword for display
+            keywords = list(config["keywords"])
+            keyword_display = keywords[0] if keywords else latest_char
+            
+            # Format timestamp for display
+            update_time_str = datetime.fromisoformat(latest_time).strftime("%Y-%m-%d")
+            
+            await self.context.send_message(
+                event.unified_msg_origin,
+                MessageChain([Plain(f"最新更新的攻略：{keyword_display} (更新于 {update_time_str})")])
+            )
+            await self._send_strategy_image(event, latest_char)
+        else:
+            await self.context.send_message(
+                event.unified_msg_origin,
+                MessageChain([Plain("暂无更新记录，请先使用 /更新乐土攻略 更新攻略")])
+            )
     
     async def _get_strategy(self, event: AstrMessageEvent):
         """获取乐土攻略（首次克隆仓库）"""
@@ -274,8 +337,18 @@ class ElysianRealmStrategy(Star):
             )
             return
         
-        # 拉取更新
+        # Get list of changed files during update
         try:
+            # First, get the current commit hash
+            result_hash = subprocess.run(
+                ["git", "-C", str(self.data_dir), "rev-parse", "HEAD"],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            old_commit = result_hash.stdout.strip() if result_hash.returncode == 0 else None
+            
+            # Pull updates
             result = subprocess.run(
                 ["git", "-C", str(self.data_dir), "pull", "--no-rebase"],
                 capture_output=True,
@@ -291,13 +364,45 @@ class ElysianRealmStrategy(Star):
                         MessageChain([Plain("已经是最新版本了")])
                     )
                 else:
+                    # Get list of changed files
+                    updated_files = []
+                    if old_commit:
+                        result_diff = subprocess.run(
+                            ["git", "-C", str(self.data_dir), "diff", "--name-only", old_commit, "HEAD"],
+                            capture_output=True,
+                            text=True,
+                            timeout=30
+                        )
+                        if result_diff.returncode == 0:
+                            changed_files = result_diff.stdout.strip().split('\n')
+                            # Filter for image files and extract character names
+                            image_extensions = ['.png', '.PNG', '.jpg', '.jpeg', '.JPG', '.gif', '.GIF']
+                            current_time = datetime.now().isoformat()
+                            
+                            for file_path in changed_files:
+                                if file_path:
+                                    file_name = Path(file_path).stem
+                                    file_ext = Path(file_path).suffix
+                                    if file_ext in image_extensions:
+                                        # Update timestamp for this character
+                                        if file_name in self.strategy_config:
+                                            self.strategy_config[file_name]["last_updated"] = current_time
+                                            updated_files.append(file_name)
+                            
+                            # Save updated config
+                            if updated_files:
+                                self._save_strategy_config()
+                    
+                    response_msg = "乐土攻略更新完成\n"
+                    if updated_files:
+                        response_msg += f"更新的角色: {', '.join(updated_files)}\n"
+                    response_msg += "[请]使用'/乐土指令 添加 [imageName] [command]'为新角色添加触发词\n"
+                    response_msg += "例：/乐土指令 添加 菲莉丝 猫猫乐土\n"
+                    response_msg += "或使用 '最新攻略' 查看最新更新的攻略"
+                    
                     await self.context.send_message(
                         event.unified_msg_origin,
-                        MessageChain([
-                            Plain("乐土攻略更新完成\n"),
-                            Plain("[请]使用'/乐土指令 添加 [imageName] [command]'添加新角色触发词\n"),
-                            Plain("例：/乐土指令 添加 菲莉丝 猫猫乐土")
-                        ])
+                        MessageChain([Plain(response_msg)])
                     )
             else:
                 error_msg = result.stderr or result.stdout
@@ -374,8 +479,15 @@ class ElysianRealmStrategy(Star):
             return
         
         result = "攻略列表:\n\n"
-        for image_name, keywords in self.strategy_config.items():
-            result += f"{image_name}: {', '.join(keywords)}\n"
+        for image_name, config in self.strategy_config.items():
+            keywords = config["keywords"]
+            last_updated = config.get("last_updated")
+            
+            result += f"{image_name}: {', '.join(keywords)}"
+            if last_updated:
+                update_time = datetime.fromisoformat(last_updated).strftime("%Y-%m-%d")
+                result += f" (更新于: {update_time})"
+            result += "\n"
         
         await self.context.send_message(
             event.unified_msg_origin,
@@ -396,16 +508,19 @@ class ElysianRealmStrategy(Star):
         
         # 添加或更新
         if image_name in self.strategy_config:
-            self.strategy_config[image_name].update(keyword_list)
+            self.strategy_config[image_name]["keywords"].update(keyword_list)
         else:
-            self.strategy_config[image_name] = set(keyword_list)
+            self.strategy_config[image_name] = {
+                "keywords": set(keyword_list),
+                "last_updated": datetime.now().isoformat()
+            }
         
         self._save_strategy_config()
         
         await self.context.send_message(
             event.unified_msg_origin,
             MessageChain([
-                Plain(f"添加成功: {image_name} -> {', '.join(self.strategy_config[image_name])}")
+                Plain(f"添加成功: {image_name} -> {', '.join(self.strategy_config[image_name]['keywords'])}")
             ])
         )
     

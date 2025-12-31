@@ -229,13 +229,21 @@ class ElysianRealmStrategy(Star):
         # Find the character with the most recent update
         latest_char = None
         latest_time = None
+        latest_time_obj = None
         
         for char_name, config in self.strategy_config.items():
             last_updated = config.get("last_updated")
             if last_updated:
-                if latest_time is None or last_updated > latest_time:
-                    latest_time = last_updated
-                    latest_char = char_name
+                try:
+                    # Parse to datetime for proper comparison
+                    time_obj = datetime.fromisoformat(last_updated)
+                    if latest_time_obj is None or time_obj > latest_time_obj:
+                        latest_time_obj = time_obj
+                        latest_time = last_updated
+                        latest_char = char_name
+                except (ValueError, TypeError) as e:
+                    self.logger.error(f"Invalid timestamp for {char_name}: {last_updated}, error: {e}")
+                    continue
         
         if latest_char:
             # Get first keyword for display
@@ -245,9 +253,9 @@ class ElysianRealmStrategy(Star):
             
             # Format timestamp for display
             try:
-                update_time_str = datetime.fromisoformat(latest_time).strftime("%Y-%m-%d")
-            except (ValueError, TypeError) as e:
-                self.logger.error(f"Invalid timestamp format: {latest_time}, error: {e}")
+                update_time_str = latest_time_obj.strftime("%Y-%m-%d")
+            except (ValueError, TypeError, AttributeError) as e:
+                self.logger.error(f"Error formatting timestamp: {latest_time}, error: {e}")
                 update_time_str = "未知日期"
             
             await self.context.send_message(
@@ -358,6 +366,17 @@ class ElysianRealmStrategy(Star):
                 self.logger.warning(f"Invalid commit hash format: {old_commit}")
                 old_commit = None
             
+            # Additional validation: verify commit exists in repository
+            if old_commit:
+                verify_result = subprocess.run(
+                    ["git", "-C", str(self.data_dir), "cat-file", "-e", old_commit],
+                    capture_output=True,
+                    timeout=10
+                )
+                if verify_result.returncode != 0:
+                    self.logger.warning(f"Commit hash does not exist in repository: {old_commit}")
+                    old_commit = None
+            
             # Pull updates
             result = subprocess.run(
                 ["git", "-C", str(self.data_dir), "pull", "--no-rebase"],
@@ -387,7 +406,8 @@ class ElysianRealmStrategy(Star):
                             diff_output = result_diff.stdout.strip()
                             # Check if there's actual output before splitting
                             if diff_output:
-                                changed_files = diff_output.split('\n')
+                                # Use splitlines() for better cross-platform compatibility
+                                changed_files = diff_output.splitlines()
                             else:
                                 changed_files = []
                             

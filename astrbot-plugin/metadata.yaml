@@ -1,0 +1,6 @@
+name: "elysian_realm_strategy"
+display_name: "崩坏3往世乐土攻略"
+author: "MskTim"
+desc: "基于AstrBot的崩坏3往世乐土攻略查询插件，可在聊天中根据关键词触发图片，快速获取往世乐土攻略"
+version: "2.0.0"
+repo: "https://github.com/MskTmi/Bh3-ElysianRealm-Strategy"

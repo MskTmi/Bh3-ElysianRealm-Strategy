@@ -239,7 +239,8 @@ class ElysianRealmStrategy(Star):
         
         if latest_char:
             # Get first keyword for display
-            keywords = list(config["keywords"])
+            latest_config = self.strategy_config[latest_char]
+            keywords = list(latest_config["keywords"])
             keyword_display = keywords[0] if keywords else latest_char
             
             # Format timestamp for display

@@ -21,6 +21,7 @@ ElysianRealmConfig:
     - 猫猫乐土
     - 帕朵菲利丝乐土
     - 菲利丝乐土
+    - 猪咪乐土
   Oven: 
     - 火塔乐土
     - 烤箱乐土
@@ -213,6 +214,11 @@ ElysianRealmConfig:
     - 死律结命流乐土
     - 结命流乐土
     - 死律安愈流
+  Rebirth_Swap: 
+    - 死律乐土4
+    - 死律凋换流
+    - 死律凋换流乐土
+    - 凋换流乐土
   Sirin_Attack: 
     - 西琳乐土2
     - 河豚乐土2
@@ -222,20 +228,6 @@ ElysianRealmConfig:
     - 河豚乐土
     - 西琳蓄力流
     - 西琳分支流
-  Rebirth_Swap: 
-    - 死律乐土
-    - 死律凋换流
-    - 死律凋换流乐土
-    - 凋换流乐土
-  TheresaLuna_Weapon: 
-    - 月下誓约乐土
-    - 大月下乐土2
-    - 月下誓约武器流
-    - 大月下武器流
-  TheresaLuna_Attack: 
-    - 月下誓约普攻流
-    - 大月下普攻流
-    - 大月下乐土
   Sentience_brick: 
     - 识律板砖流
     - 识律乐土2
@@ -316,3 +308,138 @@ ElysianRealmConfig:
     - 灯姐星环流
     - 莎芙莱星环流
     - 灯星环流
+  Songque: 
+    - 松雀乐土
+    - 松雀奶奶乐土
+  Songque_AstralRing: 
+    - 松雀乐土2
+    - 松雀奶奶乐土2
+    - 松雀星环流
+    - 松雀奶奶星环流
+  Theresa_Sleep: 
+    - 德丽莎乐土
+    - 德丽傻乐土
+    - 雷傻乐土
+    - 量子傻乐土
+    - 德丽莎睡觉流
+    - 德丽傻睡觉流
+    - 德莉傻乐土
+    - 德莉莎乐土
+  Theresa_AstralRing: 
+    - 德丽莎乐土2
+    - 德丽傻乐土2
+    - 雷傻乐土2
+    - 量子傻乐土2
+    - 德丽莎星环流
+    - 德丽傻星环流
+    - 德莉傻乐土2
+    - 德莉莎乐土2
+  Vita: 
+    - 薇塔乐土
+    - 坏女人乐土
+  Vita_AstralRing: 
+    - 薇塔乐土2
+    - 薇塔星环流
+    - 坏女人乐土2
+  Sparkle: 
+    - 花火乐土
+  Sparkle_AstralRing: 
+    - 花火乐土2
+    - 花火星环流
+  Durandal_TakeWalk: 
+    - 小呆鹅乐土
+    - 迷你鹅乐土
+    - 小呆鹅逛街流
+  Durandal_Branch: 
+    - 小呆鹅乐土2
+    - 迷你鹅乐土2
+    - 小呆鹅蓄力流
+  Human_AstralRing: 
+    - 人律星环流
+    - 人律乐土3
+  Kiana_Jump: 
+    - 琪亚娜乐土
+    - 琪天大圣乐土
+    - 琪亚娜跳鼓流
+    - 琪天大圣跳鼓流
+    - 星琪乐土
+    - 大懒猫乐土
+  Kiana_Attack: 
+    - 琪亚娜乐土2
+    - 琪天大圣乐土2
+    - 琪亚娜普攻流
+    - 琪天大圣普攻流
+    - 星琪乐土2
+    - 大懒猫乐土2
+  PeregrineSword: 
+    - 李素裳乐土2
+    - 一客逍游乐土
+    - 李大枕头乐土
+  PeregrineSword_AstralRing: 
+    - 李素裳乐土3
+    - 李素裳星环流
+    - 一客逍游乐土2
+    - 李大枕头乐土2
+  CoralieDragon: 
+    - 科拉莉乐土3
+    - 龙科乐土
+    - 魔龙乐土
+    - 小龙女乐土
+  CoralieDragon_AstralRing: 
+    - 科拉莉乐土4
+    - 龙科星环流
+    - 龙科乐土2
+    - 魔龙星环流
+    - 小龙女星环流
+  HeliaReborn: 
+    - 赫丽娅乐土3
+    - 机赫乐土
+    - 龙骑士乐土
+    - s赫乐土
+  HeliaReborn_AstralRing: 
+    - 赫丽娅乐土4
+    - 机赫星环流
+    - 龙骑士星环流
+    - s赫星环流
+  Rebirth_AstralRing: 
+    - 死律乐土5
+    - 死律星环流
+  Rebirth: 
+    - 死律乐土
+  LoveELF: 
+    - 爱愿妖精乐土
+    - 爱愿乐土
+    - 爱神乐土
+  LoveELF_AstralRing: 
+    - 爱愿妖精乐土2
+    - 爱愿乐土2
+    - 爱神乐土2
+    - 爱愿星环流
+  Rita_MissEspionage: 
+    - 虚塔乐土
+    - 特丽乐土
+    - 色律乐土
+  Rita_MissEspionage_AstralRing: 
+    - 虚塔乐土2
+    - 特丽乐土2
+    - 色律乐土2
+    - 特丽星环流
+  TheresaLuna_Weapon: 
+    - 月下誓约乐土
+    - 月下誓约武器流
+    - 大月下武器流
+  TheresaLuna_Attack: 
+    - 月下誓约普攻流
+    - 大月下普攻流
+  Mei_DawnbearingCrescent: 
+    - 星芽乐土
+    - 新芽乐土
+  Mei_DawnbearingCrescent_AstralRing: 
+    - 星芽乐土2
+    - 新芽乐土2
+    - 星芽星环流
+  TheresaLuna: 
+    - 大月下乐土
+  TheresaLuna_AstralRing: 
+    - 大月下乐土2
+    - 大月下星环流

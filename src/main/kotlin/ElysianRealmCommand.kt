@@ -21,8 +21,27 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
         var index = 2
         while (index < command.size && command[index].startsWith("-")) {
             when {
-                command[index].startsWith("--depth=") || command[index].startsWith("--branch=") -> index++
-                command[index] == "--depth" || command[index] == "--branch" || command[index] == "-b" -> index += 2
+                command[index].startsWith("--depth=") -> {
+                    if (command[index].removePrefix("--depth=").isBlank()) {
+                        context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
+                        return
+                    }
+                    index++
+                }
+                command[index].startsWith("--branch=") -> {
+                    if (command[index].removePrefix("--branch=").isBlank()) {
+                        context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
+                        return
+                    }
+                    index++
+                }
+                command[index] == "--depth" || command[index] == "--branch" || command[index] == "-b" -> {
+                    if (index + 1 >= command.size || command[index + 1].isBlank() || command[index + 1].startsWith("-")) {
+                        context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
+                        return
+                    }
+                    index += 2
+                }
                 else -> {
                     context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
                     return

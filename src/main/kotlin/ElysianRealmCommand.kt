@@ -11,10 +11,14 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
     @Handler
     suspend fun handle(context: CommandSender) {
         context.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
-        val repository = Config.repository["url"].orEmpty()
+        val cloneCommand = Config.repository["url"].orEmpty().trim()
             .ifBlank { "git clone --depth=1 --branch legacy https://github.com/MskTmi/ElysianRealm-Data.git" }
-        val command = "$repository data/ElysianRealm-Data/"
-        val pro = Runtime.getRuntime().exec(command)
+        if (!cloneCommand.startsWith("git clone ")) {
+            context.sendMessage("配置中的 url 仅支持 git clone 命令")
+            return
+        }
+        val command = cloneCommand.split("\\s+".toRegex()).filter { it.isNotEmpty() } + "data/ElysianRealm-Data/"
+        val pro = ProcessBuilder(command).start()
         if (pro.waitFor() == 0) {
             context.sendMessage("乐土攻略获取完成")
             if (clearStream(pro.inputStream).isNullOrEmpty()) {

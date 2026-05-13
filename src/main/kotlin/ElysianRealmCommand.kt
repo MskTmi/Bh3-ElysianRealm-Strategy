@@ -12,7 +12,7 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
     suspend fun handle(context: CommandSender) {
         context.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
         val repository = Config.repository["url"]
-        val branch = Config.repository["branch"]?.ifBlank { "legacy" } ?: "legacy"
+        val branch = Config.repository["branch"].orEmpty().ifBlank { "legacy" }
         val command = "git clone --depth=1 --branch $branch $repository data/ElysianRealm-Data/"
         val pro = Runtime.getRuntime().exec(command)
         if (pro.waitFor() == 0) {

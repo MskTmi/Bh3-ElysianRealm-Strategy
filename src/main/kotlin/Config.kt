@@ -5,11 +5,10 @@ import net.mamoe.mirai.console.data.value
 
 object Config : AutoSavePluginConfig("config") {
 
-    @ValueDescription("此处可更改乐土攻略存储库地址")
+    @ValueDescription("此处可更改获取乐土攻略使用的 git clone 命令")
     val repository: MutableMap<String, String> by value(
         mutableMapOf(
-            "url" to "https://github.com/MskTmi/ElysianRealm-Data.git",
-            "branch" to "legacy"
+            "url" to "git clone --depth=1 --branch legacy https://github.com/MskTmi/ElysianRealm-Data.git"
         )
     )
 }

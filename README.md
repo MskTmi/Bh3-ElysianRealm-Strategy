@@ -82,7 +82,7 @@
 ### 自定义攻略仓库
 > 1.6.0 版本新增，旧版无法自定义攻略仓库
 1. [Fork ElysianRealm-Data](https://github.com/MskTmi/ElysianRealm-Data/fork) 或 [新建仓库](https://github.com/new)
-2. 在 Mirai/config/Bh3.ElysianRealm.Strategy/config.yml 中修改 url
+2. 在 Mirai/config/Bh3.ElysianRealm.Strategy/config.yml 中修改 url（默认已附带 legacy 分支参数）
 3. 删除 Mirai/data 下的 ElysianRealm-Data 文件夹
 4. 输入 `/获取乐土攻略` 指令获取新仓库中的图片
 

@@ -11,55 +11,9 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
     @Handler
     suspend fun handle(context: CommandSender) {
         context.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
-        val cloneCommand = Config.repository["url"].orEmpty().trim()
-            .ifBlank { "git clone --depth=1 --branch legacy https://github.com/MskTmi/ElysianRealm-Data.git" }
-        val command = cloneCommand.split("\\s+".toRegex()).filter { it.isNotEmpty() }
-        if (command.size < 3 || command[0] != "git" || command[1] != "clone") {
-            context.sendMessage("配置中的 url 仅支持 git clone 命令")
-            return
-        }
-        var index = 2
-        while (index < command.size && command[index].startsWith("-")) {
-            when {
-                command[index].startsWith("--depth=") -> {
-                    if (command[index].removePrefix("--depth=").isBlank()) {
-                        context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
-                        return
-                    }
-                    index++
-                }
-                command[index].startsWith("--branch=") -> {
-                    if (command[index].removePrefix("--branch=").isBlank()) {
-                        context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
-                        return
-                    }
-                    index++
-                }
-                command[index] == "--depth" || command[index] == "--branch" || command[index] == "-b" -> {
-                    if (index + 1 >= command.size || command[index + 1].isBlank() || command[index + 1].startsWith("-")) {
-                        context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
-                        return
-                    }
-                    index += 2
-                }
-                else -> {
-                    context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
-                    return
-                }
-            }
-        }
-        if (index != command.lastIndex) {
-            context.sendMessage("配置中的 url 需以远程仓库地址结尾，请勿包含目标目录")
-            return
-        }
-        val remote = command[index]
-        if (!remote.startsWith("https://") && !remote.startsWith("http://") && !remote.startsWith("ssh://") &&
-            !remote.startsWith("git@")
-        ) {
-            context.sendMessage("配置中的 url 仅支持 http(s)/ssh 远程仓库地址")
-            return
-        }
-        val pro = ProcessBuilder(command + "data/ElysianRealm-Data/").start()
+        val repository = Config.repository["url"]
+        val command = "git clone --depth=1 $repository data/ElysianRealm-Data/"
+        val pro = Runtime.getRuntime().exec(command)
         if (pro.waitFor() == 0) {
             context.sendMessage("乐土攻略获取完成")
             if (clearStream(pro.inputStream).isNullOrEmpty()) {

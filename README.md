@@ -81,6 +81,10 @@
 
 ### 自定义攻略仓库
 > 1.6.0 版本新增，旧版无法自定义攻略仓库
+
+> 注意：新的 `ElysianRealm-Data` 主分支已升级为“攻略数据索引仓库”，仓库结构调整为 `data` / `meta` / `dist`，并由构建脚本自动生成索引文件。  
+> 当前插件仍按旧版目录结构直接读取图片文件，因此目前只能使用 `legacy` 分支；如果你要自定义仓库，也需要保持与 `legacy` 分支一致的旧目录结构。
+
 1. [Fork ElysianRealm-Data](https://github.com/MskTmi/ElysianRealm-Data/fork) 或 [新建仓库](https://github.com/new)
 2. 在 Mirai/config/Bh3.ElysianRealm.Strategy/config.yml 中修改 url（默认已附带 legacy 分支参数）
 3. 删除 Mirai/data 下的 ElysianRealm-Data 文件夹

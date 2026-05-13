@@ -13,12 +13,17 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
         context.sendMessage("开始获取乐土攻略，可能会需要一段时间，请耐心等待")
         val cloneCommand = Config.repository["url"].orEmpty().trim()
             .ifBlank { "git clone --depth=1 --branch legacy https://github.com/MskTmi/ElysianRealm-Data.git" }
-        if (!cloneCommand.startsWith("git clone ")) {
+        val command = cloneCommand.split("\\s+".toRegex()).filter { it.isNotEmpty() }
+        if (command.size < 3 || command[0] != "git" || command[1] != "clone") {
             context.sendMessage("配置中的 url 仅支持 git clone 命令")
             return
         }
-        val command = cloneCommand.split("\\s+".toRegex()).filter { it.isNotEmpty() } + "data/ElysianRealm-Data/"
-        val pro = ProcessBuilder(command).start()
+        val remote = command.last()
+        if (!remote.startsWith("https://") && !remote.startsWith("http://") && !remote.startsWith("git@")) {
+            context.sendMessage("配置中的 url 需以远程仓库地址结尾，请勿包含目标目录")
+            return
+        }
+        val pro = ProcessBuilder(command + "data/ElysianRealm-Data/").start()
         if (pro.waitFor() == 0) {
             context.sendMessage("乐土攻略获取完成")
             if (clearStream(pro.inputStream).isNullOrEmpty()) {

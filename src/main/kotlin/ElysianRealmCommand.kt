@@ -18,9 +18,26 @@ object GetImageCommand : SimpleCommand(PluginMain, "获取乐土攻略", "GetStr
             context.sendMessage("配置中的 url 仅支持 git clone 命令")
             return
         }
-        val remote = command.last()
-        if (!remote.startsWith("https://") && !remote.startsWith("http://") && !remote.startsWith("git@")) {
+        var index = 2
+        while (index < command.size && command[index].startsWith("-")) {
+            when {
+                command[index].startsWith("--depth=") || command[index].startsWith("--branch=") -> index++
+                command[index] == "--depth" || command[index] == "--branch" || command[index] == "-b" -> index += 2
+                else -> {
+                    context.sendMessage("配置中的 url 仅支持 git clone [--depth] [--branch] <远程仓库地址> 格式")
+                    return
+                }
+            }
+        }
+        if (index != command.lastIndex) {
             context.sendMessage("配置中的 url 需以远程仓库地址结尾，请勿包含目标目录")
+            return
+        }
+        val remote = command[index]
+        if (!remote.startsWith("https://") && !remote.startsWith("http://") && !remote.startsWith("ssh://") &&
+            !remote.startsWith("git@")
+        ) {
+            context.sendMessage("配置中的 url 仅支持 http(s)/ssh 远程仓库地址")
             return
         }
         val pro = ProcessBuilder(command + "data/ElysianRealm-Data/").start()

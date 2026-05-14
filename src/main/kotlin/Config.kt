@@ -8,7 +8,7 @@ object Config : AutoSavePluginConfig("config") {
     @ValueDescription("此处可更改乐土攻略存储库地址")
     val repository: MutableMap<String, String> by value(
         mutableMapOf(
-            "url" to "https://github.com/MskTmi/ElysianRealm-Data.git"
+            "url" to "--branch legacy https://github.com/MskTmi/ElysianRealm-Data.git"
         )
     )
 }
